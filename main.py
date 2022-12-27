@@ -96,8 +96,16 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
     if distance < 27:
         return True
     else:
-        return False
+        return False    
 
+def moveCharacter(characterX, change):
+    print(change)
+    characterX += change;
+    # character is on the left side of the screen
+    if characterX <= 0:
+        characterX = 0
+    elif characterX >= 736:
+        characterX = 736
 
 # Game Loop
 running = True
@@ -131,6 +139,7 @@ while running:
 
     # 5 = 5 + -0.1 -> 5 = 5 - 0.1
     # 5 = 5 + 0.1
+    moveCharacter(playerX, playerX_change) 
 
     playerX += playerX_change
     if playerX <= 0:
