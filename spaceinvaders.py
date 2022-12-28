@@ -20,6 +20,10 @@ class SpaceInvaders:
          self.running = False
          self.numEnemies = numEnemies
          self.enemies = self.loadEnemies()
+         pygame.font.init()
+         self.font = pygame.font.Font('freesansbold.ttf', 32)
+         self.scoreValue = 0;
+         self.scoreText = None;
          self.initalizeGame()
         
     def initalizeGame(self):
@@ -30,8 +34,6 @@ class SpaceInvaders:
         if bullet.rect.colliderect(enemy.rect):
             return False
         return True
- 
-
     
     def drawBackground(self):
         if self.background:
@@ -46,6 +48,10 @@ class SpaceInvaders:
         for i in range(self.numEnemies):
            enemies.append(Enemy("enemy.png", random.randint(0, 736), random.randint(50, 150), 4, 40))
         return enemies   
+    
+    def show_score(self, x, y):
+        self.scoreText = self.font.render("Score : " + str(self.scoreValue), True, (255, 255, 255))
+        self.screen.blit(self.scoreText, (x, y))
         
     def gameLoop(self):
         while self.running:
@@ -62,7 +68,7 @@ class SpaceInvaders:
                     # respawn
                     enemy.playerX = random.randint(0, 736)
                     enemy.playerY = random.randint(50, 150)
-                    
+            self.show_score(10,10)        
             self.handleEvents()
             # Bullet Movement
             bullet = self.player.bullet
