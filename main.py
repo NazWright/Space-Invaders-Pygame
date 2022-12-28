@@ -78,7 +78,7 @@ def game_over_text():
 
 
 def player(x, y):
-    s
+    screen.blit(playerImg, (x, y))
 
 
 def enemy(x, y, i):
@@ -139,7 +139,7 @@ while running:
 
     # 5 = 5 + -0.1 -> 5 = 5 - 0.1
     # 5 = 5 + 0.1
-    moveCharacter(playerX, playerX_change) 
+    moveCharacter(playerX, playerX_change)
 
     playerX += playerX_change
     if playerX <= 0:
