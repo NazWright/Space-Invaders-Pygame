@@ -78,7 +78,7 @@ def game_over_text():
 
 
 def player(x, y):
-    screen.blit(playerImg, (x, y))
+    s
 
 
 def enemy(x, y, i):
