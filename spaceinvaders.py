@@ -1,12 +1,13 @@
 import math
 import random
 import pygame
+from enemy import Enemy
 from pygame import mixer
 from player import Player
 
 
 class SpaceInvaders:
-    def __init__(self,image, music, caption, icon):
+    def __init__(self,image, music, caption, icon, numEnemies):
          self = self
          self.screen = pygame.display.set_mode((800, 600))
          self.image = image
@@ -17,6 +18,8 @@ class SpaceInvaders:
          self.player = Player(playerImg='player.png', playerX=370, playerY=480, playerX_change=0)
          self.background = pygame.image.load(image)
          self.running = False
+         self.numEnemies = numEnemies
+         self.enemies = self.loadEnemies()
          self.initalizeGame()
         
     def initalizeGame(self):
@@ -31,12 +34,21 @@ class SpaceInvaders:
     def closeGame(self):
         self.running = False
         
+    def loadEnemies(self):
+        enemies = []
+        for i in range(self.numEnemies):
+           enemies.append(Enemy("enemy.png", random.randint(0, 736), random.randint(50, 150), 4, 40))
+        return enemies   
+    
+        
     def gameLoop(self):
         while self.running:
             self.drawBackground()
             # draw and move the player.
             self.player.move_player()
             self.player.draw_player(screen=self.screen)
+            for enemy in self.enemies:
+                enemy.spawn_enemy(self.screen)
             self.handleEvents()
             # Bullet Movement
             bullet = self.player.bullet
