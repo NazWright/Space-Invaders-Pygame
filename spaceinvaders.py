@@ -48,6 +48,7 @@ class SpaceInvaders:
             self.player.move_player()
             self.player.draw_player(screen=self.screen)
             for enemy in self.enemies:
+                enemy.control_enemy()
                 enemy.spawn_enemy(self.screen)
             self.handleEvents()
             # Bullet Movement

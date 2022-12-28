@@ -9,4 +9,13 @@ class Enemy(Player):
     
     def spawn_enemy(self, screen):
         screen.blit(self.playerImg, (self.playerX, self.playerY))
+        
+    def control_enemy(self):
+        self.playerX += self.playerX_change
+        if self.playerX <= 0:
+            self.playerX_change = 4
+            self.playerY += self.playerY_change
+        elif self.playerX >= 736:
+            self.playerX_change = -4
+            self.playerY += self.playerY_change
 
