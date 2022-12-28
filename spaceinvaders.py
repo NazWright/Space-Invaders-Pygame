@@ -68,6 +68,8 @@ class SpaceInvaders:
                     # respawn
                     enemy.playerX = random.randint(0, 736)
                     enemy.playerY = random.randint(50, 150)
+                    # points
+                    self.scoreValue += 10
             self.show_score(10,10)        
             self.handleEvents()
             # Bullet Movement
