@@ -18,4 +18,6 @@ class Enemy(Player):
         elif self.playerX >= 736:
             self.playerX_change = -4
             self.playerY += self.playerY_change
+        self.rect.x = self.playerX
+        self.rect.y = self.playerY
 

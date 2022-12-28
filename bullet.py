@@ -10,6 +10,10 @@ class Bullet:
         self.bulletY_change = 10
         self.bullet_state = "ready"
         self.bulletSound = None;
+        self.rect = self.bulletImg.get_rect()
+        self.rect.x = self.bulletX
+        self.rect.y = self.bulletY
+
     
     def fire_bullet(self, screen, x, y):
         self.bullet_state = "fire"

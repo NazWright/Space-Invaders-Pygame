@@ -9,6 +9,9 @@ class Player:
         self.playerY = playerY
         self.playerX_change = playerX_change
         self.bullet = Bullet()
+        self.bullet.rect.x = playerX
+        self.rect = self.playerImg.get_rect()
+
     
     def draw_player(self, screen):
         screen.blit(self.playerImg, (self.playerX, self.playerY))
@@ -19,6 +22,7 @@ class Player:
             self.playerX = 0
         elif self.playerX >= 736:
             self.playerX = 736
+        self.rect.x = self.playerX
             
     def move_right(self):
         self.playerX_change = 5

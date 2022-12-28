@@ -26,6 +26,13 @@ class SpaceInvaders:
         pygame.init()
         return self
     
+    def isCollision(self, bullet, enemy):
+        if bullet.rect.colliderect(enemy.rect):
+            return False
+        return True
+ 
+
+    
     def drawBackground(self):
         if self.background:
             self.screen.blit(self.background, (0, 0))
@@ -39,7 +46,6 @@ class SpaceInvaders:
         for i in range(self.numEnemies):
            enemies.append(Enemy("enemy.png", random.randint(0, 736), random.randint(50, 150), 4, 40))
         return enemies   
-    
         
     def gameLoop(self):
         while self.running:
@@ -50,16 +56,25 @@ class SpaceInvaders:
             for enemy in self.enemies:
                 enemy.control_enemy()
                 enemy.spawn_enemy(self.screen)
+                bullet = self.player.bullet
+                if enemy.rect.colliderect(bullet.rect):
+                    print("Collision detected!", bullet.rect, enemy.rect)
+                    # respawn
+                    enemy.playerX = random.randint(0, 736)
+                    enemy.playerY = random.randint(50, 150)
+                    
             self.handleEvents()
             # Bullet Movement
             bullet = self.player.bullet
             if bullet.bulletY <= 0:
                 bullet.bulletY = 480
                 bullet.bullet_state = "ready"
+                bullet.rect.y = bullet.bulletY
 
             if bullet.bullet_state == "fire":
                 bullet.fire_bullet(self.screen, self.player.playerX, bullet.bulletY)
                 bullet.bulletY -= bullet.bulletY_change
+                bullet.rect.y = bullet.bulletY
             pygame.display.update()   
     
     def handleEvents(self):
