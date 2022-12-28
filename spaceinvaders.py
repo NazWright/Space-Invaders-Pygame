@@ -38,8 +38,17 @@ class SpaceInvaders:
             self.player.move_player()
             self.player.draw_player(screen=self.screen)
             self.handleEvents()
-            pygame.display.update()
-            
+            # Bullet Movement
+            bullet = self.player.bullet
+            if bullet.bulletY <= 0:
+                bullet.bulletY = 480
+                bullet.bullet_state = "ready"
+
+            if bullet.bullet_state == "fire":
+                bullet.fire_bullet(self.screen, self.player.playerX, bullet.bulletY)
+                bullet.bulletY -= bullet.bulletY_change
+            pygame.display.update()   
+    
     def handleEvents(self):
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -49,10 +58,17 @@ class SpaceInvaders:
                         self.player.move_left()
                     if event.key == pygame.K_RIGHT:
                         self.player.move_right()
+                    if event.key == pygame.K_SPACE:
+                        if self.player.bullet.bullet_state is "ready":
+                            self.bulletSound = mixer.Sound("laser.wav")
+                            self.bulletSound.play()
+                            # Get the current x cordinate of the spaceship
+                            bulletX = self.player.playerX
+                            self.player.bullet.fire_bullet(self.screen, bulletX, self.player.bullet.bulletY)
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                         self.player.stop()
-
+                        
     def run(self):
        self.running = True
        self.gameLoop()

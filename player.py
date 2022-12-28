@@ -1,4 +1,6 @@
 import pygame
+from pygame import mixer
+from bullet import Bullet
 
 class Player:
     def __init__(self, playerImg, playerX, playerY, playerX_change) -> None:
@@ -6,6 +8,7 @@ class Player:
         self.playerX = playerX
         self.playerY = playerY
         self.playerX_change = playerX_change
+        self.bullet = Bullet()
     
     def draw_player(self, screen):
         screen.blit(self.playerImg, (self.playerX, self.playerY))
@@ -25,5 +28,6 @@ class Player:
         
     def stop(self):
         self.playerX_change = 0
+        
     
         

@@ -2,14 +2,15 @@ import pygame
 
 
 class Bullet:
-    def __init__(self, x, y, speed):
-        self.x = x
-        self.y = y
-        self.speed = speed
-        self.image = pygame.image.load("bullet.png")
-        self.rect = self.image.get_rect()
+    def __init__(self) -> None:
+        self.bulletImg = pygame.image.load('bullet.png')
+        self.bulletX = 0
+        self.bulletY = 480
+        self.bulletX_change = 0
+        self.bulletY_change = 10
+        self.bullet_state = "ready"
+        self.bulletSound = None;
     
-    def fire_bullet(self, screen):
-        self.rect.x = self.x
-        self.rect.y = self.y
-        screen.blit(self.image, (self.rect.x, self.rect.y))
+    def fire_bullet(self, screen, x, y):
+        self.bullet_state = "fire"
+        screen.blit(self.bulletImg, (x + 16, y + 10))
